@@ -27,7 +27,6 @@
   <!-- 1. Remove projects we want gone entirely -->
 
   <!-- Generic audio HAL: collides with hardware/qcom-caf/sm8150/audio. -->
-  <remove-project name="LineageOS/android_hardware_qcom_audio" path="hardware/qcom/audio" />
 
   <!-- Wrong-SoC trees. sdm845 = SD845, sm7250 = SD765 — not raphael. -->
   <remove-project name="LineageOS/android_hardware_qcom_sdm845_display" />
