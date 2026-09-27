@@ -41,8 +41,10 @@
 
   <!-- 2. Override upstream sources with our private forks. -->
 
-  <!-- sm8150 display: our fork disables the duplicate modules so sm8350's
-       composer-service architecture takes over. -->
+  <!-- sm8150 display: THE LIVE DISPLAY HAL. Our fork carries an sm8150
+       sde-drm backend built against the 5.4 kernel, the offline-rotator
+       disable and GPU rotation path (changes.md section 38), and the
+       display_headers library the media tree builds against. -->
   <remove-project name="LineageOS/android_hardware_qcom_display"
                   path="hardware/qcom-caf/sm8150/display" />
   <project name="erg-raphael-5-4/android_hardware_qcom_display_sm8150"
@@ -52,7 +54,9 @@
 
   <!-- sm8150 media: heavily patched (vidc_v4l2_compat.h, c2d2.h symlink,
        msm_vidc_vui_display_info_payload member rename, local include_dirs
-       to find media/msm_*.h kernel UAPI). -->
+       to find media/msm_*.h kernel UAPI). Also carries c2-venc, the in-tree
+       Codec2 AVC/HEVC encoders that replace the QTI prebuilts as default
+       (changes.md sections 43-50). -->
   <remove-project name="LineageOS/android_hardware_qcom_media"
                   path="hardware/qcom-caf/sm8150/media" />
   <project name="erg-raphael-5-4/android_hardware_qcom_media_sm8150"
@@ -69,15 +73,10 @@
            remote="erg-raphael"
            revision="lineage-23.2-caf-sm8350-raphael" />
 
-  <!-- sm8350 display: this is the display HAL the build actually uses. The
-       installed libsdmcore/libdrmutils come from here, not from
-       hardware/qcom-caf/sm8150/display (whose tree is disabled and only
-       supplies a header library to the media tree).
-
-       Our fork carries a fix for DisplayBuiltIn::Init() propagating a
-       deliberately tolerated panel-feature error out of Init and killing
-       display creation outright. Without the fork a repo sync silently
-       reverts it. See changes.md. -->
+  <!-- sm8350 display: no longer the live display HAL (the sm8150 tree above
+       is, since changes.md section 38). Kept pinned so the fork's
+       DisplayBuiltIn::Init() panel-feature fix is not lost and the tree
+       stays consistent with the blob set that was in use before. -->
   <remove-project name="LineageOS/android_hardware_qcom_display"
                   path="hardware/qcom-caf/sm8350/display" />
   <project name="erg-raphael-5-4/android_hardware_qcom_display_sm8350"
