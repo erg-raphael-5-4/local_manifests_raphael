@@ -160,15 +160,5 @@
            remote="erg-raphael"
            revision="lineage-23.2-caf-sm8150-raphael" />
 
-  <!-- libion. The Goodix fingerprint HAL asks for the legacy QSECOM heap id
-       (bit 27), which does not exist on this 5.4 kernel; without the fallback
-       to ION_QSECOM_HEAP_ID the HAL cannot allocate and fingerprint is dead.
-       See changes.md section 20. -->
-  <remove-project name="platform/system/memory/libion" />
-  <project name="erg-raphael-5-4/android_system_memory_libion"
-           path="system/memory/libion"
-           remote="erg-raphael"
-           revision="lineage-23.2-raphael" />
-
 </manifest>
 
