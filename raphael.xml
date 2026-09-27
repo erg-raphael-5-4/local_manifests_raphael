@@ -29,14 +29,14 @@
   <!-- Generic audio HAL: collides with hardware/qcom-caf/sm8150/audio. -->
 
   <!-- Wrong-SoC trees. sdm845 = SD845, sm7250 = SD765 — not raphael. -->
-  <remove-project name="LineageOS/android_hardware_qcom_sdm845_display" />
-  <remove-project name="LineageOS/android_hardware_qcom_sdm845_gps" />
-  <remove-project name="LineageOS/android_hardware_qcom_sm7250_display" />
-  <remove-project name="LineageOS/android_hardware_qcom_sm7250_gps" />
+  <remove-project name="LineageOS/android_hardware_qcom_sdm845_display" optional="true" />
+  <remove-project name="LineageOS/android_hardware_qcom_sdm845_gps" optional="true" />
+  <remove-project name="LineageOS/android_hardware_qcom_sm7250_display" optional="true" />
+  <remove-project name="LineageOS/android_hardware_qcom_sm7250_gps" optional="true" />
 
   <!-- Right SoC but redundant with hardware/qcom-caf/sm8150/. -->
-  <remove-project name="LineageOS/android_hardware_qcom_sm8150_display" />
-  <remove-project name="LineageOS/android_hardware_qcom_sm8150_gps" />
+  <remove-project name="LineageOS/android_hardware_qcom_sm8150_display" optional="true" />
+  <remove-project name="LineageOS/android_hardware_qcom_sm8150_gps" optional="true" />
 
   <!-- 2. Override upstream sources with our private forks. -->
 
@@ -44,7 +44,7 @@
        sde-drm backend built against the 5.4 kernel, the offline-rotator
        disable and GPU rotation path (changes.md section 38), and the
        display_headers library the media tree builds against. -->
-  <remove-project name="LineageOS/android_hardware_qcom_display"
+  <remove-project name="LineageOS/android_hardware_qcom_display" optional="true"
                   path="hardware/qcom-caf/sm8150/display" />
   <project name="erg-raphael-5-4/android_hardware_qcom_display_sm8150"
            path="hardware/qcom-caf/sm8150/display"
@@ -56,7 +56,7 @@
        to find media/msm_*.h kernel UAPI). Also carries c2-venc, the in-tree
        Codec2 AVC/HEVC encoders that replace the QTI prebuilts as default
        (changes.md sections 43-50). -->
-  <remove-project name="LineageOS/android_hardware_qcom_media"
+  <remove-project name="LineageOS/android_hardware_qcom_media" optional="true"
                   path="hardware/qcom-caf/sm8150/media" />
   <project name="erg-raphael-5-4/android_hardware_qcom_media_sm8150"
            path="hardware/qcom-caf/sm8150/media"
@@ -65,7 +65,7 @@
 
   <!-- sm8350 audio: our fork disables the duplicate audio HAL modules
        (sm8150 audio HAL wins on this build). -->
-  <remove-project name="LineageOS/android_hardware_qcom_audio"
+  <remove-project name="LineageOS/android_hardware_qcom_audio" optional="true"
                   path="hardware/qcom-caf/sm8350/audio" />
   <project name="erg-raphael-5-4/android_hardware_qcom_audio_sm8350"
            path="hardware/qcom-caf/sm8350/audio"
@@ -76,7 +76,7 @@
        is, since changes.md section 38). Kept pinned so the fork's
        DisplayBuiltIn::Init() panel-feature fix is not lost and the tree
        stays consistent with the blob set that was in use before. -->
-  <remove-project name="LineageOS/android_hardware_qcom_display"
+  <remove-project name="LineageOS/android_hardware_qcom_display" optional="true"
                   path="hardware/qcom-caf/sm8350/display" />
   <project name="erg-raphael-5-4/android_hardware_qcom_display_sm8350"
            path="hardware/qcom-caf/sm8350/display"
@@ -93,16 +93,9 @@
            remote="erg-raphael"
            revision="MI_RAPHAEL_5.4" />
 
-  <!-- frameworks/opt/net/wifi - our fork carries the WifiTrackerLib fix
-       so transition-mode WPA2/WPA3 (and OWE) APs are saved as the
-       stronger AKM (SAE / OWE) by the Settings UI, instead of the AOSP
-       default that downgrades to PSK/Open and breaks association on
-       APs that mandate SAE. -->
-  <remove-project name="platform/frameworks/opt/net/wifi" />
-  <project name="erg-raphael-5-4/android_frameworks_opt_net_wifi"
-           path="frameworks/opt/net/wifi"
-           remote="erg-raphael"
-           revision="25Q4-release-raphael" />
+  <!-- frameworks/opt/net/wifi is NOT overridden on the Android 17 tree. Our
+       fork (WifiTrackerLib SAE/OWE transition-mode fix) is Android 16 based;
+       re-evaluate against AOSP 17 and cherry-pick if the bug is still there. -->
 
   <!-- Device trees + hardware/xiaomi - our private forks. Not in the
        upstream manifest; roomservice/lineage.dependencies would otherwise
@@ -153,7 +146,7 @@
        own no stream (speaker-protection calibration builds one from a NULL
        adev->primary_output) and the app-type update dereferenced it blindly.
        See changes.md section 32.1. -->
-  <remove-project name="LineageOS/android_hardware_qcom_audio"
+  <remove-project name="LineageOS/android_hardware_qcom_audio" optional="true"
                   path="hardware/qcom-caf/sm8150/audio" />
   <project name="erg-raphael-5-4/android_hardware_qcom_audio_sm8150"
            path="hardware/qcom-caf/sm8150/audio"
