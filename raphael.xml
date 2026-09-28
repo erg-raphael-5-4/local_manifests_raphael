@@ -61,7 +61,7 @@
   <project name="erg-raphael-5-4/android_hardware_qcom_media_sm8150"
            path="hardware/qcom-caf/sm8150/media"
            remote="erg-raphael"
-           revision="lineage-23.2-caf-sm8150-raphael" />
+           revision="derp-17" />
 
   <!-- sm8350 audio: our fork disables the duplicate audio HAL modules
        (sm8150 audio HAL wins on this build). -->
