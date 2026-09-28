@@ -20,5 +20,5 @@ The fork repos and this manifest repo are private; clone via a PAT in
 `~/.netrc` or via a `git config --global url.<token>@github.com/.insteadOf
 https://github.com/` rewrite.
 
-See `changes.md` at the build root for the full set of patches across all
-repos (forked and otherwise).
+Each forked project's commit history in the erg-raphael-5-4 organisation
+describes its patches.
