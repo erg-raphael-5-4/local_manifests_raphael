@@ -153,15 +153,4 @@
            remote="erg-raphael"
            revision="lineage-23.2-caf-sm8150-raphael" />
 
-  <!-- packages/modules/Connectivity (Tethering mainline module, netd BPF
-       programs). Android 17 only ships ingress/egress stats BPF programs for
-       kernels >= 5.10; on 5.4 netd cannot attach them and exits, so the
-       device never gets past boot. Our fork adds 5.4 variants (see
-       changes.md section 59). derp-17 branch of a fork of DerpFest's repo. -->
-  <remove-project name="android_packages_modules_Connectivity" optional="true" />
-  <project name="erg-raphael-5-4/android_packages_modules_Connectivity"
-           path="packages/modules/Connectivity"
-           remote="erg-raphael"
-           revision="derp-17" />
-
 </manifest>
