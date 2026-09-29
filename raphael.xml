@@ -51,6 +51,15 @@
            remote="erg-raphael"
            revision="derp-17" />
 
+  <!-- NXP NFC HAL: treat EEPROM parameters the NFCC firmware doesn't know
+       as unsupported, so core init doesn't loop on raphael's SN100 FW. -->
+  <remove-project name="LineageOS/android_hardware_nxp_nfc" optional="true"
+                  path="hardware/nxp/nfc" />
+  <project name="erg-raphael-5-4/android_hardware_nxp_nfc"
+           path="hardware/nxp/nfc"
+           remote="erg-raphael"
+           revision="derp-17" />
+
   <!-- sm8150 media: heavily patched (vidc_v4l2_compat.h, c2d2.h symlink,
        msm_vidc_vui_display_info_payload member rename, local include_dirs
        to find media/msm_*.h kernel UAPI). Also carries c2-venc, the in-tree
