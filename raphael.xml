@@ -49,7 +49,7 @@
   <project name="erg-raphael-5-4/android_hardware_qcom_display_sm8150"
            path="hardware/qcom-caf/sm8150/display"
            remote="erg-raphael"
-           revision="lineage-23.2-caf-sm8150-raphael" />
+           revision="derp-17" />
 
   <!-- sm8150 media: heavily patched (vidc_v4l2_compat.h, c2d2.h symlink,
        msm_vidc_vui_display_info_payload member rename, local include_dirs
