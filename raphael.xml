@@ -135,6 +135,17 @@
            remote="erg-raphael"
            revision="derp-17" />
 
+  <!-- hardware/interfaces: camera HFR fixes in the HIDL camera wrapper and
+       helper (per-frame HFR video buffers, 60 fps high speed preview),
+       enabled by props in device/xiaomi/raphael. -->
+  <remove-project name="android_hardware_interfaces" optional="true"
+                  path="hardware/interfaces" />
+  <project name="erg-raphael-5-4/android_hardware_interfaces"
+           path="hardware/interfaces"
+           remote="erg-raphael"
+           revision="derp-17"
+           groups="pdk,sysui-studio" />
+
   <!-- MIUI Camera (Leica 5.0 port). Based on crDroid's GitLab repos; the
        vendor repo keeps its APKs as plain git (MiuiCamera.apk in parts,
        joined by a genrule) instead of Git LFS. -->
