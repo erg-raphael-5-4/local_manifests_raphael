@@ -135,6 +135,19 @@
            remote="erg-raphael"
            revision="derp-17" />
 
+  <!-- MIUI Camera (Leica 5.0 port). Based on crDroid's GitLab repos; the
+       vendor repo keeps its APKs as plain git (MiuiCamera.apk in parts,
+       joined by a genrule) instead of Git LFS. -->
+  <project name="erg-raphael-5-4/android_device_xiaomi_miuicamera"
+           path="device/xiaomi/miuicamera"
+           remote="erg-raphael"
+           revision="derp-17" />
+
+  <project name="erg-raphael-5-4/proprietary_vendor_xiaomi_miuicamera"
+           path="vendor/xiaomi/miuicamera"
+           remote="erg-raphael"
+           revision="derp-17" />
+
   <project name="erg-raphael-5-4/proprietary_vendor_xiaomi_sm8150-common"
            path="vendor/xiaomi/sm8150-common"
            remote="erg-raphael"
