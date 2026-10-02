@@ -40,5 +40,17 @@ command that restores it from its bundle.
 JOBS=3 .repo/local_manifests/safe-sync.sh    # check, back up, sync
 ```
 
+## Building
+
+`build.sh` syncs through safe-sync.sh, installs the release keys from
+`~/.android-certs` and builds. Link it into the build root once:
+
+```
+ln -s .repo/local_manifests/build.sh build.sh
+./build.sh                      # sync, keys, userdebug build
+BUILD_TYPE=user ./build.sh      # user build
+SKIP_SYNC=1 BUILD_TYPE=user ./build.sh
+```
+
 Work belongs on a fork listed here and pushed to its `derp-17` branch; a
 project that isn't listed follows upstream on every sync.
