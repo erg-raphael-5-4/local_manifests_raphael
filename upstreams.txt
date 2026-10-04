@@ -1,0 +1,30 @@
+# Upstreams of the erg-raphael-5-4 repos, merged into their derp-17 branches
+# by safe-sync.sh (merge, never rebase; nothing is pushed).
+#
+# <tree path>  <upstream URL>  <upstream branch>
+#
+# DerpFest 17 is based on LineageOS lineage-24.0, so the lineage-24.0 (or
+# lineage-24.0-caf-*) branch is used wherever the upstream has one.
+#
+# Not synced on purpose (detached from DUCKS-QCM-5-4, 2026-10-04): device
+# raphael, device/vendor sm8150-common, vendor raphael and the kernel came
+# from DUCKS-QCM-5-4 but are maintained here on their own now.
+
+# DerpFest
+hardware/interfaces                 https://github.com/DerpFest-AOSP/android_hardware_interfaces                 17
+
+# LineageOS
+hardware/nxp/nfc                    https://github.com/LineageOS/android_hardware_nxp_nfc                        lineage-24.0
+hardware/xiaomi                     https://github.com/LineageOS/android_hardware_xiaomi                         lineage-24.0
+hardware/qcom-caf/sm8150/audio      https://github.com/LineageOS/android_hardware_qcom_audio                     lineage-24.0-caf-sm8150
+hardware/qcom-caf/sm8150/display    https://github.com/LineageOS/android_hardware_qcom_display                   lineage-24.0-caf-sm8150
+hardware/qcom-caf/sm8150/media      https://github.com/LineageOS/android_hardware_qcom_media                     lineage-24.0-caf-sm8150
+hardware/qcom-caf/sm8350/audio      https://github.com/LineageOS/android_hardware_qcom_audio                     lineage-24.0-caf-sm8350
+hardware/qcom-caf/sm8350/display    https://github.com/LineageOS/android_hardware_qcom_display                   lineage-24.0-caf-sm8350
+
+# crDroid (GitLab)
+device/xiaomi/miuicamera            https://gitlab.com/crdroidandroid/android_device_xiaomi_miuicamera           17.0-raphael
+
+# Not mergeable: vendor/xiaomi/miuicamera was re-imported from crDroid
+# proprietary_vendor_xiaomi_miuicamera (16.0-raphael c0fed96) as one commit
+# without LFS, so it shares no history with it. Copy crDroid changes by hand.
