@@ -24,7 +24,7 @@
 # Keep ~/.android-certs backed up: builds signed with other keys can't be
 # dirty-flashed over these.
 
-set -eo pipefail
+set -e
 
 TOP="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 case "$TOP" in */.repo/local_manifests) TOP="${TOP%/.repo/local_manifests}" ;; esac
@@ -101,6 +101,9 @@ oom_in_log() {
     grep -qE 'signal: killed|Killed$|exit status 137|OutOfMemoryError|Cannot allocate memory|fatal error: out of memory' "$1"
 }
 
+# pipefail only from here: envsetup.sh and lunch have pipelines that fail
+# harmlessly, and with set -e that would end the script.
+set -o pipefail
 stamp="$(date +%Y%m%d-%H%M%S)"
 mkdir -p out
 try=1
