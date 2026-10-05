@@ -11,7 +11,9 @@
 # whose memory is capped (MEM_HIGH throttles it, MEM_MAX is where the kernel
 # starts swapping it out or OOM-kills it instead of a desktop app), so the
 # machine stays usable while it builds. If the build dies from an OOM kill it
-# is resumed, up to MAX_TRIES attempts; any other failure stops the script.
+# is resumed with fewer jobs (12 -> 8 -> 5 -> 4 ...), up to MAX_TRIES attempts;
+# any other failure stops the script, unless RETRY_ANY=1, which resumes after
+# every failure.
 #   MEM_HIGH=16G MEM_MAX=20G MAX_TRIES=5 GOMEMLIMIT=12GiB GOGC=50 (defaults)
 # The output of each attempt is in out/build-<date>-<attempt>.log.
 #
@@ -117,15 +119,25 @@ while :; do
         echo ">> Build finished on attempt $try"
         break
     fi
-    if [ "$(oom_kills)" = "$before" ] && ! oom_in_log "$log"; then
+    if [ "$(oom_kills)" != "$before" ] || oom_in_log "$log"; then
+        why="OOM-killed"
+        # Fewer jobs next time: 12 -> 8 -> 5 -> 4 -> 3 -> 2 -> 1.
+        case "$JOBS" in
+            1|2) [ "$JOBS" -gt 1 ] && JOBS=1 ;;
+            3|4) JOBS=$((JOBS - 1)) ;;
+            *) JOBS=$(( JOBS * 2 / 3 )); [ "$JOBS" -lt 4 ] && JOBS=4 ;;
+        esac
+    elif [ "${RETRY_ANY:-0}" = 1 ]; then
+        why="failed"
+    else
         echo ">> Build failed (not an OOM kill); see $log" >&2
         exit 1
     fi
     if [ "$try" -ge "$MAX_TRIES" ]; then
-        echo ">> Build was OOM-killed $try times; giving up" >&2
+        echo ">> Build $why on attempt $try/$MAX_TRIES; giving up (see $log)" >&2
         exit 1
     fi
-    echo ">> Build was OOM-killed; resuming in 60 s"
+    echo ">> Build $why; resuming with -j$JOBS in 60 s"
     try=$((try + 1))
     sleep 60
 done
