@@ -91,6 +91,7 @@ if [ "$problems" -gt 0 ]; then
 fi
 [ -n "$CHECK_ONLY" ] && { echo ">> Check passed; not syncing (--check)"; exit 0; }
 
+lost=0
 if [ -z "$UPSTREAM_ONLY" ]; then
     # Everything that exists only locally is in a bundle now, so it's safe to
     # let repo re-create git dirs whose remote changed.
@@ -105,6 +106,12 @@ if [ -z "$UPSTREAM_ONLY" ]; then
         fi
         if git -C "$p" cat-file -e "$sha^{commit}" 2>/dev/null &&
                 git -C "$p" branch -a --contains "$sha" 2>/dev/null | grep -q .; then
+            continue
+        fi
+        # Put it back from the bundle when that branch name is free again.
+        if ! git -C "$p" show-ref -q --verify "refs/heads/$b" &&
+                git -C "$p" fetch -q "$f" "$b:$b" 2>/dev/null; then
+            echo "   $p $b ($sha) was dropped by the sync; restored from $f"
             continue
         fi
         echo "!! $p $b ($sha) is no longer on a branch; restore it with:"
@@ -149,7 +156,7 @@ restore_branches() {
 merge_upstreams() {
     [ -f "$UPSTREAMS" ] || return 0
     echo ">> Merging upstream changes into $BRANCH"
-    local p url ub ref n
+    local p url ub ref n remote
     while read -r p url ub; do
         case "$p" in ''|'#'*) continue ;; esac
         if [ ! -e "$p/.git" ]; then
@@ -159,6 +166,11 @@ merge_upstreams() {
         fi
         if [ "$(git -C "$p" symbolic-ref -q --short HEAD)" != "$BRANCH" ]; then
             git -C "$p" checkout -q -B "$BRANCH" HEAD
+            # Track the remote branch so the next repo sync keeps this one.
+            remote="$(git -C "$p" remote | head -n1)"
+            if git -C "$p" show-ref -q --verify "refs/remotes/$remote/$BRANCH"; then
+                git -C "$p" branch -q -u "$remote/$BRANCH" "$BRANCH"
+            fi
         fi
         ref="refs/remotes/upstream/$ub"
         if ! git -C "$p" fetch -q --no-tags "$url" "+refs/heads/$ub:$ref"; then
@@ -196,4 +208,4 @@ restore_branches
 if [ -z "$NO_UPSTREAM" ] && [ -f "$UPSTREAMS" ]; then
     echo ">> Upstreams: $upstream_merged merged, $upstream_problems problem(s); nothing pushed"
 fi
-[ "$restore_problems" -eq 0 ] && [ "$upstream_problems" -eq 0 ] || exit 1
+[ "$lost" -eq 0 ] && [ "$restore_problems" -eq 0 ] && [ "$upstream_problems" -eq 0 ] || exit 1
