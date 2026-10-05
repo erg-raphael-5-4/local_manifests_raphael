@@ -79,7 +79,7 @@
   <project name="erg-raphael-5-4/android_hardware_qcom_audio_sm8350"
            path="hardware/qcom-caf/sm8350/audio"
            remote="erg-raphael"
-           revision="lineage-23.2-caf-sm8350-raphael" />
+           revision="derp-17" />
 
   <!-- sm8350 display: no longer the live display HAL (the sm8150 tree above
        is, since changes.md section 38). Kept pinned so the fork's
