@@ -110,11 +110,29 @@ if [ -z "$UPSTREAM_ONLY" ]; then
                 git -C "$p" branch -a --contains "$sha" 2>/dev/null | grep -q .; then
             continue
         fi
-        # Put it back from the bundle when that branch name is free again.
+        # Put it back from the bundle when that branch name is free again,
+        # or when the branch that has the name now holds nothing local-only
+        # (repo reset it to a remote commit), so overwriting it loses nothing.
         if ! git -C "$p" show-ref -q --verify "refs/heads/$b" &&
                 git -C "$p" fetch -q "$f" "$b:$b" 2>/dev/null; then
             echo "   $p $b ($sha) was dropped by the sync; restored from $f"
             continue
+        fi
+        if git -C "$p" show-ref -q --verify "refs/heads/$b" &&
+                [ -z "$(git -C "$p" rev-list -1 "$b" --not --remotes)" ] &&
+                git -C "$p" fetch -q "$f" "$b:refs/safe-sync/restore" 2>/dev/null; then
+            if [ "$(git -C "$p" symbolic-ref -q --short HEAD)" = "$b" ]; then
+                if [ -z "$(git -C "$p" status --porcelain --untracked-files=no)" ]; then
+                    git -C "$p" reset -q --hard refs/safe-sync/restore
+                fi
+            else
+                git -C "$p" branch -q -f "$b" refs/safe-sync/restore
+            fi
+            git -C "$p" update-ref -d refs/safe-sync/restore
+            if [ "$(git -C "$p" rev-parse "$b")" = "$sha" ]; then
+                echo "   $p $b ($sha) was reset by the sync; restored from $f"
+                continue
+            fi
         fi
         echo "!! $p $b ($sha) is no longer on a branch; restore it with:"
         echo "     git -C $p fetch $f $b:$b"
