@@ -72,14 +72,11 @@
            remote="erg-raphael"
            revision="derp-17" />
 
-  <!-- sm8350 audio: our fork disables the duplicate audio HAL modules
-       (sm8150 audio HAL wins on this build). -->
+  <!-- sm8350 audio: not needed. The audio HAL is the sm8150 one and the
+       tfa98xx plugin uses the sm8150 headers, so nothing is checked out at
+       this path (the LineageOS project is only removed, not replaced). -->
   <remove-project name="LineageOS/android_hardware_qcom_audio" optional="true"
                   path="hardware/qcom-caf/sm8350/audio" />
-  <project name="erg-raphael-5-4/android_hardware_qcom_audio_sm8350"
-           path="hardware/qcom-caf/sm8350/audio"
-           remote="erg-raphael"
-           revision="derp-17" />
 
   <!-- sm8350 display: no longer the live display HAL (the sm8150 tree above
        is, since changes.md section 38). Kept pinned so the fork's
