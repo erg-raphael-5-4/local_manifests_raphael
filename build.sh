@@ -87,6 +87,14 @@ while :; do
             lunch lineage_raphael-bp4a-"$1" >/dev/null && mka bacon -j"$2"' _ "$BUILD_TYPE" "$JOBS" \
             2>&1 | tee "$log"; then
         echo ">> Build finished on attempt $try"
+        # bacon hard-links the dated zip to lineage_raphael-ota.zip, and the
+        # next build rewrites that file in place, which silently replaced
+        # the contents of every earlier dated zip with the same link. Give
+        # each dated zip its own copy.
+        for z in "${ANDROID_PRODUCT_OUT:-out/target/product/raphael}"/lineage-*-raphael.zip; do
+            [ -f "$z" ] && [ "$(stat -c %h "$z")" -gt 1 ] || continue
+            cp "$z" "$z.tmp" && mv "$z.tmp" "$z"
+        done
         break
     fi
     if [ "$(oom_kills)" != "$before" ] || oom_in_log "$log"; then
