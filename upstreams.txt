@@ -1,0 +1,18 @@
+# Upstreams of the erg-raphael-5-4 repos in the LineageOS 23.2 tree, merged
+# into the local staging branch by safe-sync.sh (merge, never rebase;
+# nothing is pushed).
+#
+# <tree path>  <upstream URL>  <upstream branch>
+#
+# Not synced on purpose: device/vendor raphael and sm8150-common and the
+# kernel came from DUCKS-QCM-5-4 and are maintained here on their own
+# (detached 2026-10-04). frameworks/opt/net/wifi is pinned to an AOSP tag.
+
+# LineageOS
+hardware/nxp/nfc                    https://github.com/LineageOS/android_hardware_nxp_nfc                        lineage-23.2
+hardware/xiaomi                     https://github.com/LineageOS/android_hardware_xiaomi                         lineage-23.2
+hardware/qcom-caf/sm8150/audio      https://github.com/LineageOS/android_hardware_qcom_audio                     lineage-23.2-caf-sm8150
+hardware/qcom-caf/sm8150/display    https://github.com/LineageOS/android_hardware_qcom_display                   lineage-23.2-caf-sm8150
+hardware/qcom-caf/sm8150/media      https://github.com/LineageOS/android_hardware_qcom_media                     lineage-23.2-caf-sm8150
+hardware/qcom-caf/sm8350/audio      https://github.com/LineageOS/android_hardware_qcom_audio                     lineage-23.2-caf-sm8350
+hardware/qcom-caf/sm8350/display    https://github.com/LineageOS/android_hardware_qcom_display                   lineage-23.2-caf-sm8350
