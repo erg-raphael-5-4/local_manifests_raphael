@@ -19,7 +19,6 @@ hardware/xiaomi                     https://github.com/LineageOS/android_hardwar
 hardware/qcom-caf/sm8150/audio      https://github.com/LineageOS/android_hardware_qcom_audio                     lineage-24.0-caf-sm8150
 hardware/qcom-caf/sm8150/display    https://github.com/LineageOS/android_hardware_qcom_display                   lineage-24.0-caf-sm8150
 hardware/qcom-caf/sm8150/media      https://github.com/LineageOS/android_hardware_qcom_media                     lineage-24.0-caf-sm8150
-hardware/qcom-caf/sm8350/audio      https://github.com/LineageOS/android_hardware_qcom_audio                     lineage-24.0-caf-sm8350
 hardware/qcom-caf/sm8350/display    https://github.com/LineageOS/android_hardware_qcom_display                   lineage-24.0-caf-sm8350
 
 # crDroid (GitLab)
