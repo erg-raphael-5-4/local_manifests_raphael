@@ -162,9 +162,9 @@
            remote="erg-raphael"
            revision="derp-17" />
 
-  <project name="erg-raphael-5-4/android_device_xiaomi_sm8150-common"
+  <project name="raphael-6-12/android_device_xiaomi_sm8150-common"
            path="device/xiaomi/sm8150-common"
-           remote="erg-raphael"
+           remote="raphael-6-12"
            revision="derp-17_6-12" />
 
   <project name="erg-raphael-5-4/android_hardware_xiaomi"
