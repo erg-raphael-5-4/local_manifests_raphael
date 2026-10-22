@@ -23,6 +23,8 @@
 
   <!-- Remote for our private forks -->
   <remote name="erg-raphael" fetch="https://github.com/" />
+  <!-- Private org with the Linux 6.12 kernel (ssh: private repos) -->
+  <remote name="raphael-6-12" fetch="ssh://git@github.com/" />
 
   <!-- 1. Remove projects we want gone entirely -->
 
@@ -89,15 +91,14 @@
            remote="erg-raphael"
            revision="lineage-23.2-caf-sm8350-raphael" />
 
-  <!-- raphael kernel - our fork (Linux 5.4 + KernelSU-Next hooks +
-       TFA9874 DAVI path enabled + LOCALVERSION suffix -qgki_ergdev +
-       tfa_tx_hostless dailink macro fix). Not in the upstream manifest -
-       lineage.dependencies normally pulls it via roomservice; we override
-       directly to our fork. -->
-  <project name="erg-raphael-5-4/android_kernel_xiaomi_sm8150"
+  <!-- raphael kernel: Linux 6.12 (raphael-6-12 org, branch raphael-6.12),
+       built in-tree by the device tree's derp-17_6-12 branch
+       (raphael_android_defconfig + raphael/ksu.config, clang r547379).
+       The msm-5.4 kernel lives on this manifest's derp-17 branch. -->
+  <project name="raphael-6-12/android_kernel_xiaomi_sm8150"
            path="kernel/xiaomi/sm8150"
-           remote="erg-raphael"
-           revision="derp-17" />
+           remote="raphael-6-12"
+           revision="raphael-6.12" />
 
   <!-- frameworks/opt/net/wifi is NOT overridden on the Android 17 tree. Our
        fork (WifiTrackerLib SAE/OWE transition-mode fix) is Android 16 based;
@@ -164,7 +165,7 @@
   <project name="erg-raphael-5-4/android_device_xiaomi_sm8150-common"
            path="device/xiaomi/sm8150-common"
            remote="erg-raphael"
-           revision="derp-17" />
+           revision="derp-17_6-12" />
 
   <project name="erg-raphael-5-4/android_hardware_xiaomi"
            path="hardware/xiaomi"
