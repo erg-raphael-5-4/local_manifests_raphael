@@ -170,7 +170,7 @@
   <project name="erg-raphael-5-4/android_hardware_xiaomi"
            path="hardware/xiaomi"
            remote="erg-raphael"
-           revision="derp-17" />
+           revision="derp-17_6-12" />
 
   <!-- sm8150 audio HAL. Upstream LineageOS crashes with SIGSEGV on ordinary
        playback and takes audioserver down with it: a PCM_PLAYBACK usecase can
